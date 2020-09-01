@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Log;
+use App\Http\Requests\CreateLog;
 
 class LogController extends Controller
 {
@@ -12,7 +13,7 @@ class LogController extends Controller
         return view('logs', compact('logs'));
     }
 
-    public function create(Request $request) {
+    public function create(CreateLog $request) {
         $log = new Log();
         $log->log = $request->log;
         $log->save();
