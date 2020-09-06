@@ -14,18 +14,20 @@
     </div>
     @endif
 
-    <form action="{{ route('log.create') }}" method="post" class="card text-center py-5">
+    <form action="{{ route('log.create') }}" method="post" class="card text-center px-5 bg-light">
         @csrf
-        <p>
-            <label for="">ログ追加</label>
-            <input type="text" name="log">
-            <button type="submit">送信</button>
-        </p>
+        <div class="form-group p-3  mb-0 row">
+            <input class="form-control col-9" type="text" name="log" placeholder="行動ログを記録しましょう">
+            <button type="submit" class="btn btn-primary col-2">追加</button>
+        </div>
     </form>
-
-    <div class="card text-left p-5">
+    <div style="height:300px;" class="card text-left p-4 overflow-auto bg-dark">
         @foreach($logs as $log)
-        <p>{{$log->created_at}} : {{$log->log}} <a href="{{ route('log.edit', $log) }}">編集/削除</a></p>
+        {{--  <a class="border-0" href="{{ route('log.edit', $log) }}" data-toggle="tooltip" data-placement="bottom" title="ログを編集">  --}}
+            <p class="text">
+                {{$log->log}}
+            </p>
+        {{--  </a>  --}}
         @endforeach
     </div>
 </div>

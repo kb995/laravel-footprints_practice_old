@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Log;
+use App\User;
 use App\Http\Requests\CreateLog;
 
 class LogController extends Controller
 {
     public function index() {
-        $logs = Log::all();
+        $user = User::find(Auth::id());
+        $logs = $user->logs;
+
         return view('logs', compact('logs'));
     }
 
     public function create(CreateLog $request) {
         $log = new Log();
         $log->log = $request->log;
+        $log->user_id = Auth::id();
         $log->save();
         return redirect()->route('logs');
     }
