@@ -1,5 +1,39 @@
 //
-.text {
-    color: red!important;
-    font-size: 5rem!important;
+@font-face {
+    font-family: 'dot';
+    src: url("../../public/font/PixelMplus12-Regular.ttf");
+  }
+@font-face {
+    font-family: 'dot_bold';
+    src: url("../../public/font/PixelMplus12-Bold.ttf");
+  }
+
+.log-link {
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: "dot";
+    letter-spacing: .4px;
+    line-height: 1.5;
+    &:hover {
+        text-decoration: none;
+        color: #aaa;
+    }
+}
+
+.logo {
+    font-family: "dot_bold";
+}
+
+.log-title {
+    font-size: 3rem;
+    font-family: "dot_bold";
+}
+
+.log-scroll {
+    overflow-y: scroll;
+    height: 300px;
+}
+
+.log-inner {
+    height: 600px;
 }

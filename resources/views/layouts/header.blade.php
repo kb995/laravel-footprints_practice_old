@@ -1,6 +1,6 @@
 <header>
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-5">
-        <a class="navbar-brand" href="#">Footprings</a>
+        <a class="navbar-brand logo" href="#">FOOTPRINTS</a>
         @if(Auth::check())
         <ul class="navbar-nav ml-auto">
             <li class="navbar-item navbar-text px-4">ようこそ, {{ Auth::user()->name }}さん</li>
