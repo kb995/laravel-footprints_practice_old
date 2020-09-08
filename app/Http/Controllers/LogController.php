@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Log;
 use App\User;
 use App\Http\Requests\CreateLog;
+use App\Http\Requests\EditLog;
 
 class LogController extends Controller
 {
@@ -30,7 +31,7 @@ class LogController extends Controller
         return view('edit', compact('log'));
     }
 
-        public function update(int $log, Request $request) {
+        public function update(int $log, EditLog $request) {
         $log = Log::find($log);
         $log->log = $request->log;
         $log->save();
