@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function logs() {
-        return $this->hasMany('App\Models\Log');
+    public function day() {
+        return $this->hasOne('App\Models\Day', 'user_id');
     }
 }

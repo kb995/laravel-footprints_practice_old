@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Day;
 use App\Models\Log;
 use App\User;
 use App\Http\Requests\CreateLog;
@@ -11,37 +12,46 @@ use App\Http\Requests\EditLog;
 
 class LogController extends Controller
 {
-    public function index() {
+    public function index(int $day) {
         $user = User::find(Auth::id());
-        $logs = $user->logs;
+        $day = $user->day()->where('id', $day)->first();
+        $logs = $day->logs()->get();
 
-        return view('logs', compact('logs'));
+        return view('logs', compact('day', 'logs'));
     }
+    // public function getLogDays() {
+    // }
 
-    public function create(CreateLog $request) {
+    public function create(int $day, CreateLog $request) {
         $log = new Log();
         $log->log = $request->log;
-        $log->user_id = Auth::id();
+        $log->date_id = $day;
         $log->save();
-        return redirect()->route('logs');
+
+        return redirect()->route('logs', ['day' => $day]);
     }
 
-    public function edit(int $log) {
+    public function edit(int $day, int $log) {
+        $day = Day::find($day);
         $log = Log::find($log);
-        return view('edit', compact('log'));
+        return view('edit', compact('day', 'log'));
     }
 
-        public function update(int $log, EditLog $request) {
-        $log = Log::find($log);
-        $log->log = $request->log;
-        $log->save();
-        return redirect()->route('logs');
-    }
+    public function update(int $day, int $log, EditLog $request) {
+    $user = User::find(Auth::id());
+    $day = $user->day()->where('id', $day)->first();
+    $log = $day->logs()->where('id', $log)->first();
 
-    public function destroy(int $log) {
-        $log = Log::find($log);
-        $log->delete();
-        return redirect()->route('logs');
-    }
+    $log->log = $request->log;
+    $log->date_id = $day->id;
+    $log->save();
+    return redirect()->route('logs', ['day' => $day->id]);
+}
+
+    // public function destroy(int $log) {
+    //     $log = Log::find($log);
+    //     $log->delete();
+    //     return redirect()->route('logs');
+    // }
 
 }
