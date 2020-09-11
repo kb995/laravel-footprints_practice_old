@@ -12,7 +12,12 @@ use App\Http\Requests\EditLog;
 
 class LogController extends Controller
 {
-    public function index(int $day) {
+    public function index() {
+        return view('index');
+
+    }
+
+    public function logs(int $day) {
         $user = User::find(Auth::id());
         $day = $user->day()->where('id', $day)->first();
         $logs = $day->logs()->get();
@@ -45,13 +50,17 @@ class LogController extends Controller
     $log->log = $request->log;
     $log->date_id = $day->id;
     $log->save();
+
     return redirect()->route('logs', ['day' => $day->id]);
 }
 
-    // public function destroy(int $log) {
-    //     $log = Log::find($log);
-    //     $log->delete();
-    //     return redirect()->route('logs');
-    // }
+    public function destroy(int $day, int $log) {
+        $user = User::find(Auth::id());
+        $day = $user->day()->where('id', $day)->first();
+        $log = $day->logs()->where('id', $log)->first();
+        $log->delete();
+
+        return redirect()->route('logs', ['day' => $day->id]);
+    }
 
 }

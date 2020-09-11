@@ -10,12 +10,12 @@
             <button class="btn btn-primary col-2" type="submit">編集</button>
         </div>
     </form>
-    {{--  <form action="{{ route('log.destroy', ['log' => $log]) }}" method="post" id="delete_{{ $log->id }}">
+    <form action="{{ route('log.destroy', ['day' => $day, 'log' => $log]) }}" method="post" id="delete_{{ $log }}">
         @csrf
         <div class="text-right">
-            <a class="text-danger" href="#" data-id="{{ $log->id }}" onclick="deletePost(this);">このログを削除する</a>
+            <a class="text-danger" href="#" data-id="{{ $log }}" onclick="deletePost(this);">このログを削除する</a>
         </div>
-    </form>  --}}
+    </form>
     </div>
 @endsection
 
