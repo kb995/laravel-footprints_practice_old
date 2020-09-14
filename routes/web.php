@@ -1,12 +1,11 @@
 <?php
+
 Route::group(['middleware' => 'auth'], function() {
-    // 初期画面 & 日付作成
-    Route::get('/index', 'LogController@index')->name('index');
     // LOGS
-    Route::get('/days/{day}/logs', 'LogController@logs')->name('logs');
+    Route::get('/days/{day?}/logs', 'LogController@logs')->name('logs');
 
     // Dayフォーム
-    Route::post('/days/create', 'DayController@create')->name('day.create');
+    // Route::post('/days/create', 'DayController@create')->name('day.create');
     // Logフォーム
     Route::post('/days/{day}/logs/create', 'LogController@create')->name('log.create');
     // Log編集

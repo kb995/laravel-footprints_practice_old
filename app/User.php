@@ -40,4 +40,9 @@ class User extends Authenticatable
     public function day() {
         return $this->hasOne('App\Models\Day', 'user_id');
     }
+
+    public function days() {
+        return $this->hasMany('App\Models\Day', 'user_id');
+    }
+
 }

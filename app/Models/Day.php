@@ -9,6 +9,5 @@ class Day extends Model
 {
     public function logs() {
         return $this->hasMany('App\Models\Log', 'date_id');
-
     }
 }

@@ -12,17 +12,13 @@ use App\Http\Requests\EditLog;
 
 class LogController extends Controller
 {
-    public function index() {
-        return view('index');
-
-    }
-
     public function logs(int $day) {
         $user = User::find(Auth::id());
-        $day = $user->day()->where('id', $day)->first();
-        $logs = $day->logs()->get();
+        $current_day = $user->day()->where('id', $day)->first();
+        $days = $user->days()->get();
+        $logs = $current_day->logs()->get();
 
-        return view('logs', compact('day', 'logs'));
+        return view('logs', compact('days', 'current_day', 'logs'));
     }
     // public function getLogDays() {
     // }

@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\Day;
+use App\Models\Log;
+use App\User;
+
+
 class LoginController extends Controller
 {
     /*
@@ -25,11 +31,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/logs';
+    protected function redirectTo() {
+        // 普通にlogsメソッドにすればいいのでは
+        $user = User::find(Auth::id());
+        $day = $user->day()->orderBy('created_at', 'desc')->first();
+        $logs = $day->logs()->get();
 
+        return route('logs', compact('day', 'logs'));
+     }
     protected function loggedOut(\Illuminate\Http\Request $request)
     {
-        return redirect('/login');
+        return redirect()->route('login');
     }
     /**
      * Create a new controller instance.

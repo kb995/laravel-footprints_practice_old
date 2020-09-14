@@ -19,40 +19,55 @@
     </div>
     @endif
 
-    {{--  日付フォーム  --}}
-    {{--  <form action="{{ route('day.create') }}" method="post" class="card text-center px-5 bg-light">
-    @csrf
-    <div class="form-group p-3  mb-0 row">
-            <input type="text" class="form-control col-9" name="date" id="date" value="{{ date('Y/m/d') }}" />
-            <button type="submit" class="btn btn-primary col-2">追加</button>
-        </div>
-    </form>  --}}
-    <a href="{{ route('index') }}">日付を追加</a>
     {{--  行動ログフォーム  --}}
-    <form action="{{ route('log.create', ['day' => $day]) }}" method="post" class="card text-center px-5 bg-light">
+    <form action="{{ route('log.create', ['day' => $current_day]) }}" method="post" class="card text-center px-5 bg-light">
         @csrf
         <div class="form-group p-3  mb-0 row">
-            <input class="form-control col-9" type="text" name="log" placeholder="行動ログを記録しましょう">
+            <input class="form-control col-3" type="time" name="" value="">
+            <input class="form-control col-7" type="text" name="log" placeholder="行動ログを記録しましょう">
             <button type="submit" class="btn btn-primary col-2">追加</button>
         </div>
     </form>
 
+    {{--  行動ログ一覧  --}}
     <div class="card text-left p-4 bg-dark log-scroll">
         <div id="log-inner">
+            @isset($current_day)
             <p class="mb-0 log-link">
-                    <span>======== </span> {{ $day->date }} <span> =========================</span>
+                <span>======== </span> {{ $current_day->date }} <span> =========================</span>
             </p>
-            @isset($logs)
+            @endisset
+
+            @empty($current_day)
+            <p class="mb-0 log-link">
+                <span>======== </span> 新しい日を登録しましょう <span> =========================</span>
+            </p>
+            @endempty
+
             @foreach($logs as $log)
             <p class="mb-0 log-link">
-                <a class="log-link" href="{{ route('log.edit', ['day' => $day, 'log' => $log] ) }}">
+                <a class="log-link" href="{{ route('log.edit', ['day' => $current_day, 'log' => $log] ) }}">
                 {{ $log->log }}
                 </a>
             </p>
             @endforeach
-            @endisset
-
         </div>
     </div>
+
+    {{--  日付の選択/追加  --}}
+    <div class="mt-4">
+        日付一覧
+        <select name="" id="">
+        @foreach($days as $day)
+            <option value="">{{ $day->date }}</option>
+        @endforeach
+        </select>
+    </div>
+    <form action="">
+        日付追加
+        <input type="text">
+    </form>
 </div>
+
+
 @endsection
